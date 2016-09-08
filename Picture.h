@@ -6,6 +6,7 @@ class Picture{
 	private:
 	    int height,width;
 		char* data;
+		//用position(int row,int col)表示第row行col列的位置的字符
 		char& position(int row,int col){
 			return data[row*width+col];
 		}
@@ -16,20 +17,21 @@ class Picture{
 	public:
 	    Picture();
 	    Picture(const char* const*,int);
-		int max(int m,int n){
+		static int max(int m,int n){
 			return m>n?m:n;
 		}
 		void init(int h,int w){
 			height = h;
-			width = w+1;
+			width = w;
 			data = new char[height*width];
 		}
 		Picture(const Picture&);
 		~Picture();
 		Picture& operator=(const Picture&);
-                friend ostream& operator<<(ostream&,const Picture&);
+		void clear(int,int,int,int);
+        friend ostream& operator<<(ostream&,const Picture&);
+		friend Picture frame(const Picture&);
+		friend Picture operator&(const Picture&,const Picture&);
+		friend Picture operator|(const Picture&,const Picture&);
 };
-Picture frame(const Picture&);
-Picture operator&(const Picture&,const Picture&);
-Picture operator|(const Picture&,const Picture&);
 #endif
